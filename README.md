@@ -1,0 +1,1 @@
+### In this project I aimed to learn and show how to create an API in ASP.NET Core with MongoDB and perform CRUD operations on the Atlas example database, Airbnb_Listings_And_Reviews
