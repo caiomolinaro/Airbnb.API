@@ -222,7 +222,7 @@ public class ReviewScores
 }
 
 [BsonIgnoreExtraElements]
-public class Listing
+public class Listing : BaseEntity
 {
     [BsonId]
     [BsonElement("id")]

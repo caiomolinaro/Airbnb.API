@@ -17,15 +17,25 @@ public class ListingsController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<List<Listing>> Get(int? page, int? limit)
+    public async Task<JsonResult> Get([FromQuery] QueryFilter filter, int? page, int? limit, string? fields = null, string sort = null)
     {
         if (!page.HasValue) page = 1;
 
         if (!limit.HasValue) limit = 5;
 
-        int offSet = limit.Value * (page.Value - 1);
+        int offset = limit.Value * (page.Value - 1);
 
-        return await _listingDataService.GetAsync(limit.Value, offSet);
+        var listings = await _listingDataService.GetAsync(filter, sort, limit.Value, offset);
+
+        listings.ForEach((item) =>
+        {
+            item.SetSerializableProperties(fields!);
+        });
+
+        return new JsonResult(listings, new Newtonsoft.Json.JsonSerializerSettings()
+        {
+            ContractResolver = new FieldsFilterContractResolver()
+        });
     }
 
     [HttpPost]
