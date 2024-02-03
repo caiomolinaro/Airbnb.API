@@ -1,7 +1,8 @@
-﻿using Newtonsoft.Json;
+﻿using Airbnb.API.DataModel;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
-namespace Airbnb.API.DataModel;
+namespace Airbnb.API.DataSerialization;
 
 public class FieldsFilterContractResolver : DefaultContractResolver
 {

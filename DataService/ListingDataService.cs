@@ -54,7 +54,7 @@ public class ListingDataService
 
         if (!string.IsNullOrWhiteSpace(queryParameters.Name))
         {
-            var nameFilter = builder.Where(x => x.name!.ToLower().Contains(queryParameters.Name));
+            var nameFilter = builder.Where(x => x.name!.ToLower().Contains(queryParameters.Name.ToLower()));
 
             if (filter == builder.Empty)
             {
@@ -94,7 +94,7 @@ public class ListingDataService
 
         if (queryParameters.Price != null)
         {
-            var priceFilter = builder.Where(x => x.price == queryParameters.Price);
+            var priceFilter = builder.Eq(x => x.price, queryParameters.Price);
             if (filter == builder.Empty)
             {
                 filter = priceFilter;
@@ -121,11 +121,11 @@ public class ListingDataService
         }
     }
 
-    public async Task<Listing?> GetAsync(string id) => await _listingsCollection.Find(x => x._id == id).FirstOrDefaultAsync();
+    public async Task<Listing?> GetAsync(string id) => await _listingsCollection.Find(x => x.id == id).FirstOrDefaultAsync();
 
     public async Task CreateAsync(Listing newListing) => await _listingsCollection.InsertOneAsync(newListing);
 
-    public async Task UpdateAsync(string id, Listing updatedListing) => await _listingsCollection.ReplaceOneAsync(x => x._id == id, updatedListing);
+    public async Task UpdateAsync(string id, Listing updatedListing) => await _listingsCollection.ReplaceOneAsync(x => x.id == id, updatedListing);
 
-    public async Task RemoveAsync(string id) => await _listingsCollection.DeleteOneAsync(x => x._id == id);
+    public async Task RemoveAsync(string id) => await _listingsCollection.DeleteOneAsync(x => x.id == id);
 }

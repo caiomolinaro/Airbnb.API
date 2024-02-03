@@ -1,4 +1,4 @@
-﻿namespace Airbnb.API.DataModel;
+﻿namespace Airbnb.API.DataSerialization;
 
 public class BaseEntity
 {
@@ -16,7 +16,7 @@ public class BaseEntity
             return;
         }
 
-        var members = this.GetType().GetMembers();
+        var members = GetType().GetMembers();
 
         SerializableProperties = new List<string>();
 

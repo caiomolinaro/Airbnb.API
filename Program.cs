@@ -1,9 +1,6 @@
-using Airbnb.API;
-using Airbnb.API.DataModel;
+using Airbnb.API.DataSerialization;
 using Airbnb.API.Service;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Versioning;
-using Newtonsoft.Json;
 
 var builder = WebApplication.CreateBuilder(args);
 

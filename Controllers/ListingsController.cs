@@ -1,4 +1,5 @@
 ﻿using Airbnb.API.DataModel;
+using Airbnb.API.DataSerialization;
 using Airbnb.API.Service;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,7 +18,7 @@ public class ListingsController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<JsonResult> Get([FromQuery] QueryFilter filter, int? page, int? limit, string? fields = null, string sort = null)
+    public async Task<JsonResult> Get([FromQuery] QueryFilter filter, int? page, int? limit, string? fields = null, string sort = null!)
     {
         if (!page.HasValue) page = 1;
 
@@ -38,18 +39,36 @@ public class ListingsController : ControllerBase
         });
     }
 
+    [HttpGet("{id}")]
+    public async Task<IActionResult> GetById(string id)
+    {
+        var listing = await _listingDataService.GetAsync(id);
+
+        if (listing == null)
+        {
+            return NotFound();
+        }
+
+        listing.SetSerializableProperties(null!);
+
+        return new JsonResult(listing, new Newtonsoft.Json.JsonSerializerSettings()
+        {
+            ContractResolver = new FieldsFilterContractResolver()
+        });
+    }
+
     [HttpPost]
     public async Task<IActionResult> Post(Listing newListing)
     {
         await _listingDataService.CreateAsync(newListing);
 
-        return CreatedAtAction(nameof(Get), new { id = newListing._id }, newListing);
+        return CreatedAtAction(nameof(Get), new { id = newListing.id }, newListing);
     }
 
     [HttpPut("{id}")]
     public async Task<IActionResult> Put(string id, Listing updateListing)
     {
-        if (id != updateListing._id)
+        if (id != updateListing.id)
         {
             return BadRequest();
         }
