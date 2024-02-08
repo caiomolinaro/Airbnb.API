@@ -1,11 +1,14 @@
+using Airbnb.API.DataModel;
 using Airbnb.API.DataSerialization;
 using Airbnb.API.Service;
 using Microsoft.AspNetCore.Mvc;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// Configuration
+var configuration = builder.Configuration;  // Use the Configuration property to access configuration
 
+// Add services to the container.
 builder.Services.AddControllers().AddNewtonsoftJson(options =>
 {
     options.SerializerSettings.ContractResolver = new FieldsFilterContractResolver();
@@ -22,6 +25,11 @@ builder.Services.AddApiVersioning(options =>
     options.AssumeDefaultVersionWhenUnspecified = true;
     options.DefaultApiVersion = new ApiVersion(1, 0);
 });
+
+string connectionString = configuration["ConnectionString:MongoDb"]!;
+string databaseName = configuration["ConnectionString:DatabaseName"]!;
+
+builder.Services.AddIdentity<ApplicationUser, ApplicationRole>().AddMongoDbStores<ApplicationUser, ApplicationRole, Guid>(connectionString, databaseName);
 
 var app = builder.Build();
 

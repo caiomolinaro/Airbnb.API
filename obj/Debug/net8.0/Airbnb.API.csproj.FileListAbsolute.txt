@@ -49,3 +49,5 @@ C:\Users\cmoli\OneDrive\Área de Trabalho\DEV\PROJECTS\Airbnb.API\bin\Debug\net8
 C:\Users\cmoli\OneDrive\Área de Trabalho\DEV\PROJECTS\Airbnb.API\bin\Debug\net8.0\Newtonsoft.Json.dll
 C:\Users\cmoli\OneDrive\Área de Trabalho\DEV\PROJECTS\Airbnb.API\bin\Debug\net8.0\Newtonsoft.Json.Bson.dll
 C:\Users\cmoli\OneDrive\Área de Trabalho\DEV\PROJECTS\Airbnb.API\obj\Debug\net8.0\Airbnb.API.sourcelink.json
+C:\Users\cmoli\OneDrive\Área de Trabalho\DEV\PROJECTS\Airbnb.API\bin\Debug\net8.0\AspNetCore.Identity.MongoDbCore.dll
+C:\Users\cmoli\OneDrive\Área de Trabalho\DEV\PROJECTS\Airbnb.API\bin\Debug\net8.0\MongoDbGenericRepository.dll

@@ -1,5 +1,6 @@
 ﻿using Airbnb.API.DataModel;
 using Airbnb.API.DataSerialization;
+using Airbnb.API.Extensions;
 using Airbnb.API.Service;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,6 +19,7 @@ public class ListingsController : ControllerBase
     }
 
     [HttpGet]
+    [BasicAuthentication]
     public async Task<JsonResult> Get([FromQuery] QueryFilter filter, int? page, int? limit, string? fields = null, string sort = null!)
     {
         if (!page.HasValue) page = 1;
